@@ -1,16 +1,22 @@
 ## About Hot_Spot VM And OSR ( On Stack Replacement )
 
 ### HotSpot VM 이야기
-- HotSpot VM은 기본적으로 JIT 컴파일러를 두 개 내장하고 있다.
-- 하나는 컴파일 속도가 빠른 대신 최적화를 적게 하는 클라이언트 컴파일러(C1 컴파일러)
-- 다른 하나는 컴파일 속도는 느리지만 더 많은 최적화를 적용하는 서버 컴파일러(C2 컴파일러)
-- 여기에 인터프리터까지 포함하여 총 3개의 실행 메커니즘이 협력하여 HotSpot VM의 실행 서브시스템을 구성한다.
+```text
+HotSpot VM은 기본적으로 JIT 컴파일러를 두 개 내장하고 있다.
+하나는 컴파일 속도가 빠른 대신 최적화를 적게 하는 클라이언트 컴파일러(C1 컴파일러)
+다른 하나는 컴파일 속도는 느리지만 더 많은 최적화를 적용하는 서버 컴파일러(C2 컴파일러)
+여기에 인터프리터까지 포함하여 총 3개의 실행 메커니즘이 협력하여 HotSpot VM의 실행 서브시스템을 구성한다.
 
-- JDK 10부터는 Graal컴파일러까지 추가되었다. 앞서 말한 서버 컴파일러(C2 컴파일러)를 대체할 목적으로 핫스팟에 도입되었다.
-- 그랄 컴파일러는 부분 탈출 분석(partial escape analysis)처럼 C2보다 복잡한 최적화도 수행할 수 있다.
-  <br/> 또한 맞춤형 가정 등을 추가해 공격적 예측 최적화(aggressive speculative optimization)를 적용하기에도 더 수월하다.
-- JDK 10 ~ 15 에서 그랄 컴파일러를 사용해보고 싶다면 ```+UnlockExperimentalVMOptions -XX:+UseJVMCI-Compiler``` 매개 변수를 지정하면 된다.
-- JDK 16부터는 개발과 관리 효율을 높이고자 그랄 컴파일러를 JDK에서 독립시켜 그랄VM으로 터전을 옮겼다.
+JDK 10부터는 Graal컴파일러까지 추가되었다. 앞서 말한 서버 컴파일러(C2 컴파일러)를 대체할 목적으로 핫스팟에 도입되었다.
+그랄 컴파일러는 부분 탈출 분석(partial escape analysis)처럼 C2보다 복잡한 최적화도 수행할 수 있다.
+또한 맞춤형 가정 등을 추가해 공격적 예측 최적화(aggressive speculative optimization)를 적용하기에도 더 수월하다.
+
+JDK 10 ~ 15 에서 그랄 컴파일러를 사용해보고 싶다면 
+ +UnlockExperimentalVMOptions -XX:+UseJVMCI-Compiler 
+매개 변수를 지정하면 된다.
+
+JDK 16부터는 개발과 관리 효율을 높이고자 그랄 컴파일러를 JDK에서 독립시켜 그랄VM으로 터전을 옮겼다.
+```
 
 
 ### JIT (Just In Time) 컴파일러
