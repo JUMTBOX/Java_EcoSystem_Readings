@@ -1,4 +1,4 @@
-## About Hot_Spot VM And OSR
+## About Hot_Spot VM And OSR ( On Stack Replacement )
 
 ### HotSpot VM 이야기
 - HotSpot VM은 기본적으로 JIT 컴파일러를 두 개 내장하고 있다.
@@ -9,9 +9,11 @@
 - JDK 10부터는 Graal컴파일러까지 추가되었다. 앞서 말한 서버 컴파일러(C2 컴파일러)를 대체할 목적으로 핫스팟에 도입되었다.
 - 그랄 컴파일러는 부분 탈출 분석(partial escape analysis)처럼 C2보다 복잡한 최적화도 수행할 수 있다.
   <br/> 또한 맞춤형 가정 등을 추가해 공격적 예측 최적화(aggressive speculative optimization)를 적용하기에도 더 수월하다.
-- JDK 10 ~ 15 에서 그랄 컴파일러를 사용해보고 싶다면 +UnlockExperimentalVMOptions -XX:+UseJVMCI-Compiler 매개 변수를 지정하면 된다.
+- JDK 10 ~ 15 에서 그랄 컴파일러를 사용해보고 싶다면 ```+UnlockExperimentalVMOptions -XX:+UseJVMCI-Compiler``` 매개 변수를 지정하면 된다.
 - JDK 16부터는 개발과 관리 효율을 높이고자 그랄 컴파일러를 JDK에서 독립시켜 그랄VM으로 터전을 옮겼다.
 
+
+### JIT (Just In Time) 컴파일러
 ```text
 "컴파일 했을 때 효과를 가장 크게 볼 수 있는 코드" 영역을 런타임에 알아내어 JIT 컴파일러에 알려준다. 
 그러면 JIT 컴파일러가 해당 코드를 메서드 단위로 컴파일한다. 
