@@ -34,8 +34,8 @@ class CalculatorTest {
   - ```assertTrue(condition)```
   - ```assertThrow(예외클래스, () -> 코드)```
 - **공통 준비/정리 메서드**
-  - ```@BeforeEach```: 각 테스트 실행 직전에 실행 
-  - ```@AfterEach```: 각 테스트 실행 직후에 실행 
+  - ```@BeforeEach```: 각 테스트 실행 **직전**에 실행 
+  - ```@AfterEach```: 각 테스트 실행 **직후**에 실행 
 
 ```java
 import org.junit.jupiter.api.*;
@@ -130,11 +130,16 @@ class OrderServiceTest {
     }
 }
 ```
+**컬렉션이나 배열의 내용까지 재귀적으로 비교하려면?**
+- ```Arrays.deepEquals```
+- AssertJ 의 ```usingRecursiveComparison```
+- JUnit5 의 ```assertIterableEquals```
+
 
 ## ⚠️주의할 점..⚠️
-- 검증용 메서드 ```Assertions.assertEquals```는 ```int```, ```long```, ```boolean```, ```char```, ```byte```, ```short```, ```float```, ```double``` 용 메서드가 따로 존재
-<br/> 즉, 원시 타입용 메서드가 따로 존재 이들은 결론적으로 일반적인 값 비교```==```를 수행한다고 한다.
-- 그러나.. 참조 타입을 검사할 때는 전적으로 ```Object.equals```에 의존한다고 한다.
+- 검증용 메서드 ```Assertions.assertEquals```는 ```int```, ```long```, ```boolean```, ```char```, ```byte```, ```short```, ```float```, ```double``` 용 메서드가 따로 존재한다.
+<br/> 이들은 결론적으로 일반적인 값 비교```==```를 수행한다고 한다.
+- 그러나 참조 타입을 검사할 때는 전적으로 ```Object.equals```에 의존한다고 한다.
 - 이 말은 곧 ```String```, ```Integer``` 등과 같은 ```Object.equals```를 오버라이드한 JDK 클래스들은 자신들이 재정의(=오버라이드)한 비교 방식을 따른다는 이야기
 - 반대로 우리 MP에서 사용하는 대부분의 검증이 필요한 값들은 개발자들이 직접 구성한 도메인 클래스.. 즉, ```Object.equals```를 별도로 오버라이드 하지 않은 클래스들이다.
 - 별도의 재정의 한 ```Object.equals```가 없기 때문에 ```Assertions.assertEquals```에서 원본 ```Object.equals```메서드가 호출 되어질 것이고.. 
@@ -144,4 +149,5 @@ class OrderServiceTest {
         return (this == obj);
     }
 ```
-- 객체끼리의 ```==``` 비교 수행시 참조주소가 같은지만을 비교하는 ```얕은 비교```를 수행하기 때문에 비교하는 두 객체의 구성이 같아도 다른 객체로 판단되어 테스트가 ```failed```될 가능성이 있으므로 이를 주의해야하겠다.
+- 객체끼리의 ```==``` 비교 수행시 참조 주소가 같은지만을 비교하기 때문에 비교하는 두 객체의 구성이 같아도 다른 인스턴스라면 다르다고 판단되어 테스트가 ```failed``` 되므로 이를 주의해야한다. 
+  <br/> 여담으로 JS에서 객체끼리의 ```==, ===```비교도 동일하다.
