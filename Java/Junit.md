@@ -30,6 +30,7 @@ class CalculatorTest {
 ```
 - ```@Test```: 이 어노테이션이 붙은 메서드가 테스트 메서드이다.
 - **Assertions (검증)**
+  - Assertion은 프로그래밍에서 `"이 값은 반드시 이래야 한다"`라고 주장하는 것
   - ```assertEquals(expected, actual)```
   - ```assertTrue(condition)```
   - ```assertThrow(예외클래스, () -> 코드)```
